@@ -18,8 +18,8 @@ passport.deserializeUser((userIdFromSession, cb) => {
 });
 
 passport.use(
-  new LocalStrategy((username, password, next) => {
-    Ong.findOne({ username }, (err, foundUser) => {
+  new LocalStrategy((name, password, next) => {
+    Ong.findOne({ name }, (err, foundUser) => {
       if (err) {
         next(err);
         return;
