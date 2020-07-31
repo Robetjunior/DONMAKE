@@ -47,5 +47,5 @@ const ongSchema = new Schema({
     type: Number,
   },
 });
-
-module.exports = model("Ong", ongSchema);
+mongoose.model;
+module.exports = mongoose.model("Ong", ongSchema);

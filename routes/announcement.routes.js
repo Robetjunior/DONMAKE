@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Announcement = require("../models/Announcement.model");
+const { route } = require("./auth.routes");
 
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
@@ -80,3 +81,5 @@ router.delete("/announcement/:id/delete", async (req, res) => {
     throw new Error(err);
   }
 });
+
+module.exports = router;
