@@ -22,6 +22,18 @@ router.post("/signup", async (req, res) => {
     });
   }
 
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  if (!regex.test(password)) {
+    resdateFormaterYear
+      .status(500)
+      .render("auth/signup", {
+        errorMessage:
+          "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+        userInSession: req.session.currentUser,
+      });
+    return;
+  }
+
   // Verificar se este nome de usuario ja foi cadastrado
   const result = await User.findOne({ username });
 
