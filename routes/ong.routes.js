@@ -6,7 +6,7 @@ const Ong = require("../models/Ong.model");
 
 router.get("/ong/profile", async (req, res) => {
   try {
-    const findOng = await Ong.find().populate("adId").exec();
+    const findOng = await Ong.find({_id: req.user._id});
 
     res.status(200).json(findOng);
   } catch (err) {
