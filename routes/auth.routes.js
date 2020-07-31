@@ -22,30 +22,44 @@ router.post("/signup", async (req, res) => {
     });
   }
 
-  // Verificar se este nome de usuario ja foi cadastrado
-  const result = await User.findOne({ username });
-
-  console.log(result);
-  if (result) {
-    return res.status(400).json({
-      message: "This username already exists. Please choose another.",
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  if (!regex.test(password)) {
+    resdateFormaterYear.status(500).render("auth/signup", {
+      errorMessage:
+        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      userInSession: req.session.currentUser,
     });
+    return;
   }
 
-  // Criptografar senha antes de inserir no banco
-  const salt = bcrypt.genSaltSync(10);
-  const hashPass = bcrypt.hashSync(password, salt);
+  // Verificar se este nome de usuario ja foi cadastrado
+  try {
+    const result = await User.findOne({ username });
 
-  const savedUser = await Ong.create({
-    name: username,
-    passwordHash: hashPass,
-    email,
-    address,
-    phone,
-    cnpj,
-  });
+    console.log(result);
+    if (result) {
+      return res.status(400).json({
+        message: "This username already exists. Please choose another.",
+      });
+    }
 
-  return res.status(201).json(savedUser);
+    // Criptografar senha antes de inserir no banco
+    const salt = bcrypt.genSaltSync(10);
+    const hashPass = bcrypt.hashSync(password, salt);
+
+    const savedUser = await Ong.create({
+      name: username,
+      passwordHash: hashPass,
+      email,
+      address,
+      phone,
+      cnpj,
+    });
+
+    return res.status(201).json(savedUser);
+  } catch (err) {
+    throw new Error(err);
+  }
 });
 
 // Login
