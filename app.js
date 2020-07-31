@@ -86,11 +86,11 @@ app.use(
 // const index = require("./routes/index");
 // app.use("/", index);
 
-const projectRoutes = require("./routes/project.routes");
-app.use("/api", projectRoutes);
+const announcementRoutes = require("./routes/announcement.routes");
+app.use("/api", announcementRoutes);
 
-const taskRoutes = require("./routes/task.routes");
-app.use("/api", taskRoutes);
+const ongRoutes = require("./routes/ong.routes");
+app.use("/api", ongRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/api", authRoutes);
