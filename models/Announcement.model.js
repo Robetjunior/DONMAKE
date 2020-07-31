@@ -18,9 +18,11 @@ const announcementSchema = new Schema({
   value: {
     type: Number,
   },
-  transitionId: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Transition" }],
-    true: true,
+  ongId: {
+    type: { type: Schema.Types.ObjectId, ref: "Ong" },
+  },
+  transaction: {
+    type: [{ type: Schema.Types.ObjectId, ref: "Transaction" }],
   },
 });
 

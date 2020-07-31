@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const transitionSchema = new Schema({
+const transactionSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -28,6 +28,9 @@ const transitionSchema = new Schema({
     trim: true,
     required: true,
   },
+  announcement: {
+    type: { type: Schema.Types.ObjectId, ref: "Announcement" },
+  },
 });
 
-module.exports = model("Transition", transitionSchema);
+module.exports = model("Transition", transactionSchema);
