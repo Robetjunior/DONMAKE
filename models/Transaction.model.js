@@ -33,4 +33,4 @@ const transactionSchema = new Schema({
   },
 });
 
-module.exports = model("Transition", transactionSchema);
+module.exports = model("Transaction", transactionSchema);
