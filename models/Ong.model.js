@@ -23,11 +23,11 @@ const ongSchema = new Schema({
   imgProfile: {
     type: String,
   },
-  endereco: {
+  address: {
     type: String,
     required: true,
   },
-  telefone: {
+  phone: {
     type: Number,
     required: true,
   },
@@ -36,12 +36,15 @@ const ongSchema = new Schema({
     required: true,
     unique: true,
   },
-  descricao: {
+  description: {
     type: String,
   },
-  anuncio: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Anuncio" }],
+  adId: {
+    type: [{ type: Schema.Types.ObjectId, ref: "Announcement" }],
     trim: true,
+  },
+  totalValue: {
+    type: Number,
   },
 });
 
