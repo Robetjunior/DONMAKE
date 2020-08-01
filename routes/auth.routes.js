@@ -7,10 +7,10 @@ const Ong = require("../models/Ong.model");
 
 // Sign-up
 router.post("/signup", async (req, res) => {
-  const { username, email, password, address, phone, cnpj } = req.body;
+  const { name, email, password, address, phone, cnpj } = req.body;
 
   // Verificar se username e password nao estao em branco
-  if (!username || !email || !password || !address || !phone || !cnpj) {
+  if (!name || !email || !password || !address || !phone || !cnpj) {
     return res.status(400).json({ message: "Please provide all informations" });
   }
 
@@ -34,7 +34,7 @@ router.post("/signup", async (req, res) => {
 
   // Verificar se este nome de usuario ja foi cadastrado
   try {
-    const result = await User.findOne({ username });
+    const result = await User.findOne({ name });
 
     console.log(result);
     if (result) {
@@ -48,7 +48,7 @@ router.post("/signup", async (req, res) => {
     const hashPass = bcrypt.hashSync(password, salt);
 
     const savedUser = await Ong.create({
-      name: username,
+      name: name,
       passwordHash: hashPass,
       email,
       address,
