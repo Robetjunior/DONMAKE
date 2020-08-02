@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { Schema, model } = require('mongoose')
 
 const ongSchema = new Schema({
   name: {
@@ -31,7 +30,7 @@ const ongSchema = new Schema({
     type: Number,
     required: true,
   },
-  cpnj: {
+  cnpj: {
     type: Number,
     required: true,
     unique: true,
@@ -40,7 +39,7 @@ const ongSchema = new Schema({
     type: String,
   },
   adId: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Announcement" }],
+    type: [{type: Schema.Types.ObjectId, ref: "Announcement" }],
     trim: true,
   },
   totalValue: {
