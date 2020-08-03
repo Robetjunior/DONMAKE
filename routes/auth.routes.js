@@ -37,12 +37,13 @@ router.post("/signup", (req, res, next) => {
     })
     .then((userFromDB) => {
       console.log("Newly created user is: ", userFromDB);
-      res.status(200);
+      res.status(200).json(userFromDB);
     })
     .catch((error) => {
      console.log(error)
     });
 });
+
 //Buscando o user e vendo se ele existe
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
