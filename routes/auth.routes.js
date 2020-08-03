@@ -3,24 +3,27 @@ const router = new Router();
 const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
 const Ong = require("../models/Ong.model");
-const Announcement = require("../models/Announcement.model")
+const Announcement = require("../models/Announcement.model");
 const mongoose = require("mongoose");
 
 //verifica se o user existe, e cadastrando novo user
 router.post("/signup", (req, res, next) => {
-  const { username,  email, password, address, phone, cnpj} = req.body
-  
-   console.log(username)
+  const { username, email, password, address, phone, cnpj } = req.body;
+
+  console.log(username);
 
   if (!username || !email || !password || !address || !phone || !cnpj) {
-    res.status(404).json({message: "prencha todos os campos"})
+    res.status(404).json({ message: "prencha todos os campos" });
     return;
   }
 
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  
+
   if (!regex.test(password)) {
-    res.status(500).json({ errorMessage:"Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."});
+    res.status(500).json({
+      errorMessage:
+        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+    });
     return;
   }
 
@@ -33,8 +36,8 @@ router.post("/signup", (req, res, next) => {
         email,
         passwordHash: hashedPassword,
         address,
-        phone, 
-        cnpj
+        phone,
+        cnpj,
       });
     })
     .then((userFromDB) => {
@@ -60,14 +63,18 @@ router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
 
   if (email === "" || password === "") {
-    res.json({errorMessage: "Please enter both, email and password to login.",});
+    res.json({
+      errorMessage: "Please enter both, email and password to login.",
+    });
     return;
   }
 
   Ong.findOne({ email })
     .then((user) => {
       if (!user) {
-        res.json({errorMessage: "Email is not registered. Try with other email."});
+        res.json({
+          errorMessage: "Email is not registered. Try with other email.",
+        });
         return;
       }
       bcryptjs
@@ -88,13 +95,13 @@ router.post("/login", (req, res, next) => {
 
 //Logout
 router.post("/logout", (req, res) => {
-   req.session.destroy();
+  req.session.destroy();
   res.redirect("/");
 });
 
 // Protegendo rota privada
 router.get("/ong/profile", async (req, res) => {
-  console.log('your sess exp: ', req.session.cookie.expires);
+  console.log("your sess exp: ", req.session.cookie.expires);
   if (req.session.currentUser) {
     const user = req.session.currentUser._id;
     try {
@@ -105,8 +112,7 @@ router.get("/ong/profile", async (req, res) => {
     }
   }
 
-  
-   res.redirect("/login");
+  res.redirect("/login");
 });
 
 module.exports = router;

@@ -9,13 +9,7 @@ router.post("/transaction/create", async (req, res) => {
   try {
     const { firstName, lastName, email, phone, value } = req.body;
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phone ||
-      !value
-    ) {
+    if (!firstName || !lastName || !email || !phone || !value) {
       return res
         .status(400)
         .json({ message: "Please provide all informations" });

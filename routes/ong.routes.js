@@ -5,14 +5,15 @@ const Ong = require("../models/Ong.model");
 // const Announcement = require('../models/Announcement.model')
 
 //router.get("/ong/profile", async (req, res) => {
- // try {
-  //  const findOng = await Ong.find().populate("adId").exec();
+// try {
+//  const findOng = await Ong.find().populate("adId").exec();
 //
-  //  res.status(200).json(findOng);
-  //} catch (err) {
-   // throw new Error(err);
+//  res.status(200).json(findOng);
+//} catch (err) {
+// throw new Error(err);
 // }
 //});
+
 //Edit/update Ong information
 router.patch("/ong/profile/:id", async (req, res) => {
   const { email, address, phone, cnpj } = req.body;

@@ -10,7 +10,7 @@ const cors = require("cors");
 mongoose
   .connect("mongodb://localhost/project3", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then((x) => {
     console.log(
@@ -26,12 +26,12 @@ const app = express();
 // Middleware Setup
 app.use(logger("dev"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // ADD SESSION SETTINGS HERE:
 
-require('./configs/session')(app);
+require("./configs/session")(app);
 
 // default value for title local
 app.locals.title = "Projeto";
@@ -47,15 +47,16 @@ app.use(
 
 // ROUTES MIDDLEWARE STARTS HERE:
 const announcementRoutes = require("./routes/announcement.routes");
-const transactionsRoutes = require("./routes/transaction.routes")
+const transactionsRoutes = require("./routes/transaction.routes");
 const ongRoutes = require("./routes/ong.routes");
 const authRoutes = require("./routes/auth.routes");
 
+app.use("/api", announcementRoutes);
+app.use("/api", transactionsRoutes);
+app.use("/api", ongRoutes);
+app.use("/api", authRoutes);
 
-
-app.use('/api', announcementRoutes);
-app.use('/api', transactionsRoutes)
-app.use('/api', ongRoutes);
-app.use('/api', authRoutes);
+const transactionRoutes = require("./routes/transaction.routes");
+app.use("/api", transactionRoutes);
 
 module.exports = app;

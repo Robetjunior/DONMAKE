@@ -32,4 +32,4 @@ const transactionSchema = new Schema({
   },
 });
 
-module.exports = model("Transition", transactionSchema);
+module.exports = mongoose.model("Transaction", transactionSchema);
