@@ -31,7 +31,8 @@ app.use(cookieParser());
 
 // ADD SESSION SETTINGS HERE:
 
-require("./configs/session")(app);
+require('./configs/session')(app);
+
 
 // default value for title local
 app.locals.title = "Projeto";

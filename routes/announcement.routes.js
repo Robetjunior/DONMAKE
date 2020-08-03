@@ -4,10 +4,25 @@ const router = express.Router();
 
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
-  const { title, description, imgPath, value } = req.body;
-  try {
-    if (!title || !description || !imgPath || !value) {
-      res.status(400).json({ message: "Please provide all informations" });
+
+    const { title, description, imgPath, value } = req.body;
+    try {
+        if (!title || !description || !imgPath || !value) {
+            res.status(400).json({ message: "Please provide all informations" });
+        }
+        const response = await Announcement.create({
+            title,
+            description,
+            imgPath,
+            value,
+            ongId: req.session.currentUser._id
+        });
+
+        return res.status(201).json(response);
+    }
+    catch (err) {
+        console.log(`Error while creating a new  announcement ${err}`)
+
     }
     const response = await Announcement.create({
       title,
