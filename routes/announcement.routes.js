@@ -1,8 +1,6 @@
+const Announcement = require("../models/Announcement.model");
 const express = require("express");
 const router = express.Router();
-
-const Announcement = require("../models/Announcement.model");
-const { route } = require("./auth.routes");
 
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
@@ -14,7 +12,7 @@ router.post("/announcement/create", async (req, res) => {
     const response = await Announcement.create({
       title,
       description,
-      imgPath: req.file.url,
+      imgPath,
       value,
       adId: req.session.currentUser._id,
     });
@@ -41,10 +39,10 @@ router.get("/announcement/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const response = await Announcement.findOne(id);
+    const response = await Announcement.findOne({ _id: id });
     res.status(200).json(response);
   } catch (err) {
-    throw new Error(err);
+    console.log(err);
   }
 });
 
@@ -74,9 +72,8 @@ router.patch("/announcement/:id/edit", async (req, res) => {
 router.delete("/announcement/:id/delete", async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await Announcement.deleteOne({ id });
-
-    res.status(200);
+    const response = await Announcement.deleteOne({ _id: id });
+    res.status(200).json({ response });
   } catch (err) {
     throw new Error(err);
   }

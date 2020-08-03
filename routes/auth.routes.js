@@ -1,10 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const passport = require("passport");
-const bcrypt = require("bcryptjs");
-
+const { Router } = require("express");
+const router = new Router();
+const bcryptjs = require("bcryptjs");
+const saltRounds = 10;
 const Ong = require("../models/Ong.model");
+const Announcement = require("../models/Announcement.model");
+const mongoose = require("mongoose");
 
+<<<<<<< HEAD
 // Sign-up
 router.post("/signup", async (req, res) => {
   const { name, email, password, address, phone, cnpj } = req.body;
@@ -13,25 +15,30 @@ router.post("/signup", async (req, res) => {
   if (!name || !email || !password || !address || !phone || !cnpj) {
     return res.status(400).json({ message: "Please provide all informations" });
   }
+=======
+//verifica se o user existe, e cadastrando novo user
+router.post("/signup", (req, res, next) => {
+  const { username, email, password, address, phone, cnpj } = req.body;
 
-  // Verificar a forca da senha
-  if (password.length < 7) {
-    return res.status(400).json({
-      message:
-        "Please make your password at least 8 characters long for security purposes",
-    });
+  console.log(username);
+>>>>>>> 2be46c3d7cc9c1e66e69b551e86edfb1d762b578
+
+  if (!username || !email || !password || !address || !phone || !cnpj) {
+    res.status(404).json({ message: "prencha todos os campos" });
+    return;
   }
 
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
   if (!regex.test(password)) {
-    resdateFormaterYear.status(500).render("auth/signup", {
+    res.status(500).json({
       errorMessage:
         "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
-      userInSession: req.session.currentUser,
     });
     return;
   }
 
+<<<<<<< HEAD
   // Verificar se este nome de usuario ja foi cadastrado
   try {
     const result = await User.findOne({ name });
@@ -54,53 +61,94 @@ router.post("/signup", async (req, res) => {
       address,
       phone,
       cnpj,
-    });
-
-    return res.status(201).json(savedUser);
-  } catch (err) {
-    throw new Error(err);
-  }
-});
-
-// Login
-router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, userObj, failureDetails) => {
-    if (err) {
-      return res
-        .status(500)
-        .json({ message: "Something went wrong while authenticating user" });
-    }
-
-    if (!userObj) {
-      return res.status(401).json(failureDetails);
-    }
-
-    req.login(userObj, (err) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ message: "Something went bad while saving session" });
+=======
+  bcryptjs
+    .genSalt(saltRounds)
+    .then((salt) => bcryptjs.hash(password, salt))
+    .then((hashedPassword) => {
+      return Ong.create({
+        name: username,
+        email,
+        passwordHash: hashedPassword,
+        address,
+        phone,
+        cnpj,
+      });
+    })
+    .then((userFromDB) => {
+      console.log("Newly created user is: ", userFromDB);
+      res.redirect("/ong/profile");
+    })
+    .catch((error) => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        res.status(500).json({ errorMessage: error.message });
+      } else if (error.code === 11000) {
+        res.status(500).json({
+          errorMessage:
+            "Username and email need to be unique. Either username or email is already used.",
+        });
+      } else {
+        next(error);
       }
-
-      return res.status(200).json(userObj);
-      // Tambem podemos retornar diretamente req.user que o Passport criou automaticamente apos salvar a sessao
-      // return res.status(200).json(req.user);
+>>>>>>> 2be46c3d7cc9c1e66e69b551e86edfb1d762b578
     });
-  })(req, res, next);
 });
 
-// Logout user
-router.post("/logout", async (req, res) => {
-  req.logout();
-  return res.status(200).json({ message: "Log-out success!" });
-});
+//Buscando o user e vendo se ele existe
+router.post("/login", (req, res, next) => {
+  const { email, password } = req.body;
 
-// Verificar seu o usuario esta autenticado
-router.get("/loggedin", (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.status(200).json(req.user);
+  if (email === "" || password === "") {
+    res.json({
+      errorMessage: "Please enter both, email and password to login.",
+    });
+    return;
   }
-  return res.status(401).json({ message: "Unauthorized" });
+
+  Ong.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        res.json({
+          errorMessage: "Email is not registered. Try with other email.",
+        });
+        return;
+      }
+      bcryptjs
+        .compare(password, user.passwordHash)
+        .then((success) => {
+          if (success) {
+            req.session.currentUser = user;
+            return res.redirect("/ong/profile");
+          }
+          res.json({ errorMessage: "Incorrect password." });
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    })
+    .catch((error) => next(error));
+});
+
+//Logout
+router.post("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
+
+// Protegendo rota privada
+router.get("/ong/profile", async (req, res) => {
+  console.log("your sess exp: ", req.session.cookie.expires);
+  if (req.session.currentUser) {
+    const user = req.session.currentUser._id;
+    try {
+      const findOng = await Ong.find().populate("adId").exec();
+      res.status(200).json(findOng, user);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  res.redirect("/login");
 });
 
 module.exports = router;

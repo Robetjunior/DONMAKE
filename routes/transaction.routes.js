@@ -7,22 +7,15 @@ const Ong = require("../models/Ong.model");
 
 router.post("/transaction/create", async (req, res) => {
   try {
-    const { firstName, lastName, email, phone, value, announcement } = req.body;
+    const { firstName, lastName, email, phone, value } = req.body;
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phone ||
-      !value ||
-      !announcement
-    ) {
+    if (!firstName || !lastName || !email || !phone || !value) {
       return res
         .status(400)
         .json({ message: "Please provide all informations" });
     }
     const response = await Transaction.create({
-      firsName,
+      firstName,
       lastName,
       email,
       phone,
