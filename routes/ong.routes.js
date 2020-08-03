@@ -20,7 +20,7 @@ router.get("/ong/profile", async (req, res) => {
     }
   }
 
-  res.redirect("/login");
+  res.status(302).json("OFF!!");
 });
 
 

@@ -37,12 +37,13 @@ router.post("/signup", (req, res, next) => {
     })
     .then((userFromDB) => {
       console.log("Newly created user is: ", userFromDB);
-      res.redirect("/ong/profile");
+      res.status(200).json(userFromDB);
     })
     .catch((error) => {
      console.log(error)
     });
 });
+
 //Buscando o user e vendo se ele existe
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
@@ -65,7 +66,7 @@ router.post("/login", (req, res, next) => {
         .then((success) => {
           if (success) {
             req.session.currentUser = user;
-            return res.redirect("/ong/profile");
+            return res.status(200).json(user);
           }
           res.json({ errorMessage: "Incorrect password." });
         })
@@ -78,7 +79,7 @@ router.post("/login", (req, res, next) => {
 //Logout
 router.post("/logout", (req, res) => {
   req.session.destroy();
-  res.redirect("/");
+  res.status(200);
 });
 
 
