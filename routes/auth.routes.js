@@ -65,7 +65,7 @@ router.post("/login", (req, res, next) => {
         .then((success) => {
           if (success) {
             req.session.currentUser = user;
-            return res.status(200).json("user ON!!");
+            return res.status(200).json(user);
           }
           res.json({ errorMessage: "Incorrect password." });
         })
