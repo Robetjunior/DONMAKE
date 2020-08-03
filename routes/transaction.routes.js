@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const Transaction = require("../models/Transaction.model");
+const Announcement = require("../models/Announcement.model")
 const Ong = require("../models/Ong.model");
 
 // Envio de transação
 
-router.post("/transaction/create", async (req, res) => {
+router.post("/transaction/create/:id", async (req, res) => {
   try {
     const { firstName, lastName, email, phone, value } = req.body;
-
+    const { id } = req.params;
     if (
       !firstName ||
       !lastName ||
@@ -26,13 +27,9 @@ router.post("/transaction/create", async (req, res) => {
       email,
       phone,
       value,
-      announcement: Announcement,
+      announcement: {_id: id}
     });
-    const findAnu = await Announcement.updateOne(
-      { _id: announcement },
-      { $push: { transaction: response._id } }
-    );
-    res.status(201).json({ response, findAnu });
+    res.status(201).json({ response});
   } catch (err) {
     throw new Error(err);
   }
@@ -48,13 +45,13 @@ router.get("/transaction/:id", async (req, res) => {
   }
 });
 
-// router.get("/transactions", async (req, res)=> {
-//   try{
-//     const response = await Announcement.find().populate("transaction").exec()
-//     return res.status(200).json(response)
-//   }
-//   catch(err) {
-//     throw new Error(err);
-//   }
-// })
+ router.get("/transactions", async (req, res)=> {
+   try{
+     const response = await Announcement.find().populate("transaction").exec()
+     return res.status(200).json(response)
+   }
+   catch(err) {
+     throw new Error(err);
+   }
+ })
 module.exports = router;

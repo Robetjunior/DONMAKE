@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema({
   firstName: {
@@ -28,8 +29,8 @@ const transactionSchema = new Schema({
     required: true,
   },
   announcement: {
-    type: { type: Schema.Types.ObjectId, ref: "Announcement" },
+    type: [{ type: Schema.Types.ObjectId, ref: "Announcement" }],
   },
 });
 
-module.exports = model("Transition", transactionSchema);
+module.exports = mongoose.model("Transaction", transactionSchema);

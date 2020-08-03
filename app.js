@@ -30,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
 // ADD SESSION SETTINGS HERE:
-
 require('./configs/session')(app);
 
 // default value for title local

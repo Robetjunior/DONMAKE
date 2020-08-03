@@ -14,7 +14,7 @@ router.post("/announcement/create", async (req, res) => {
             description,
             imgPath,
             value,
-            adId: req.session.currentUser._id
+            ongId: req.session.currentUser._id
         });
 
         return res.status(201).json(response);

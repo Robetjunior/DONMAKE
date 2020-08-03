@@ -2,17 +2,26 @@ const express = require("express");
 const router = express.Router();
 
 const Ong = require("../models/Ong.model");
-// const Announcement = require('../models/Announcement.model')
+const Announcement = require('../models/Announcement.model')
 
-//router.get("/ong/profile", async (req, res) => {
- // try {
-  //  const findOng = await Ong.find().populate("adId").exec();
-//
-  //  res.status(200).json(findOng);
-  //} catch (err) {
-   // throw new Error(err);
-// }
-//});
+// Protegendo rota privada
+router.get("/ong/profile", async (req, res) => {
+  console.log("your sess exp: ", req.session.cookie.expires);
+  if (req.session.currentUser) {
+    try {
+      const userID = req.session.currentUser._id;
+      const response = await Announcement.find({ ongId: req.userID })
+        .populate("Announcement")
+        .exec();
+      res.status(200).json(response);
+    } catch (err) {
+      console.log("Error: " ,err);
+    }
+  }
+
+  res.redirect("/login");
+});
+
 //Edit/update Ong information
 router.patch("/ong/profile/:id", async (req, res) => {
   const { email, address, phone, cnpj } = req.body;

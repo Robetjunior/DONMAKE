@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 const ongSchema = new Schema({
   name: {
@@ -32,8 +33,7 @@ const ongSchema = new Schema({
   },
   cnpj: {
     type: Number,
-    required: true,
-    unique: true,
+    required: true
   },
   description: {
     type: String,
@@ -42,9 +42,9 @@ const ongSchema = new Schema({
     type: [{type: Schema.Types.ObjectId, ref: "Announcement" }],
     trim: true,
   },
-  totalValue: {
-    type: Number,
+  transactions: {
+    type: [{type: Schema.Types.ObjectId, ref:"Transaction"}]
   },
 });
 
-module.exports = model("Ong", ongSchema);
+module.exports = mongoose.model("Ong", ongSchema);
