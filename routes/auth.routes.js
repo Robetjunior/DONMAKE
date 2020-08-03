@@ -41,6 +41,7 @@ router.post("/signup", (req, res, next) => {
     })
     .catch((error) => {
      console.log(error)
+     next()
     });
 });
 
@@ -76,10 +77,11 @@ router.post("/login", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
+
 //Logout
 router.post("/logout", (req, res) => {
   req.session.destroy();
-  res.status(200);
+  res.status(200).json({message: "sucess logout"});
 });
 
 
