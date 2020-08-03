@@ -5,7 +5,6 @@ const saltRounds = 10;
 const Ong = require("../models/Ong.model");
 const Announcement = require("../models/Announcement.model");
 const mongoose = require("mongoose");
-
 //verifica se o user existe, e cadastrando novo user
 router.post("/signup", (req, res, next) => {
   const { username, email, password, address, phone, cnpj } = req.body;
@@ -14,7 +13,6 @@ router.post("/signup", (req, res, next) => {
     res.status(404).json({ message: "prencha todos os campos" });
     return;
   }
-
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
   if (!regex.test(password)) {
@@ -24,7 +22,6 @@ router.post("/signup", (req, res, next) => {
     });
     return;
   }
-
   bcryptjs
     .genSalt(saltRounds)
     .then((salt) => bcryptjs.hash(password, salt))
@@ -46,18 +43,15 @@ router.post("/signup", (req, res, next) => {
      console.log(error)
     });
 });
-
 //Buscando o user e vendo se ele existe
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
-
   if (email === "" || password === "") {
     res.json({
       errorMessage: "Please enter both, email and password to login.",
     });
     return;
   }
-
   Ong.findOne({ email })
     .then((user) => {
       if (!user) {
@@ -81,11 +75,11 @@ router.post("/login", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
-
 //Logout
 router.post("/logout", (req, res) => {
   req.session.destroy();
   res.status(200);
 });
+
 
 module.exports = router;
