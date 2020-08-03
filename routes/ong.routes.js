@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Ong = require("../models/Ong.model");
+
 const Announcement = require('../models/Announcement.model')
 
 // Protegendo rota privada
@@ -21,6 +22,7 @@ router.get("/ong/profile", async (req, res) => {
 
   res.redirect("/login");
 });
+
 
 //Edit/update Ong information
 router.patch("/ong/profile/:id", async (req, res) => {
