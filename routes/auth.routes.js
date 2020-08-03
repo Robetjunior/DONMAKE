@@ -40,7 +40,7 @@ router.post("/signup", (req, res, next) => {
     })
     .then((userFromDB) => {
       console.log("Newly created user is: ", userFromDB);
-      res.redirect("/ong/profile");
+      res.status(200);
     })
     .catch((error) => {
      console.log(error)
@@ -71,7 +71,7 @@ router.post("/login", (req, res, next) => {
         .then((success) => {
           if (success) {
             req.session.currentUser = user;
-            return res.redirect("/ong/profile");
+            return res.status(200).json("user ON!!");
           }
           res.json({ errorMessage: "Incorrect password." });
         })
@@ -85,7 +85,7 @@ router.post("/login", (req, res, next) => {
 //Logout
 router.post("/logout", (req, res) => {
   req.session.destroy();
-  res.redirect("/");
+  res.status(200);
 });
 
 module.exports = router;
