@@ -56,7 +56,4 @@ app.use("/api", transactionsRoutes);
 app.use("/api", ongRoutes);
 app.use("/api", authRoutes);
 
-const transactionRoutes = require("./routes/transaction.routes");
-app.use("/api", transactionRoutes);
-
 module.exports = app;

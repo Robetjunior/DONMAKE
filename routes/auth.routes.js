@@ -6,11 +6,22 @@ const Ong = require("../models/Ong.model");
 const Announcement = require("../models/Announcement.model");
 const mongoose = require("mongoose");
 
+<<<<<<< HEAD
+// Sign-up
+router.post("/signup", async (req, res) => {
+  const { name, email, password, address, phone, cnpj } = req.body;
+
+  // Verificar se username e password nao estao em branco
+  if (!name || !email || !password || !address || !phone || !cnpj) {
+    return res.status(400).json({ message: "Please provide all informations" });
+  }
+=======
 //verifica se o user existe, e cadastrando novo user
 router.post("/signup", (req, res, next) => {
   const { username, email, password, address, phone, cnpj } = req.body;
 
   console.log(username);
+>>>>>>> 2be46c3d7cc9c1e66e69b551e86edfb1d762b578
 
   if (!username || !email || !password || !address || !phone || !cnpj) {
     res.status(404).json({ message: "prencha todos os campos" });
@@ -27,6 +38,30 @@ router.post("/signup", (req, res, next) => {
     return;
   }
 
+<<<<<<< HEAD
+  // Verificar se este nome de usuario ja foi cadastrado
+  try {
+    const result = await User.findOne({ name });
+
+    console.log(result);
+    if (result) {
+      return res.status(400).json({
+        message: "This username already exists. Please choose another.",
+      });
+    }
+
+    // Criptografar senha antes de inserir no banco
+    const salt = bcrypt.genSaltSync(10);
+    const hashPass = bcrypt.hashSync(password, salt);
+
+    const savedUser = await Ong.create({
+      name: name,
+      passwordHash: hashPass,
+      email,
+      address,
+      phone,
+      cnpj,
+=======
   bcryptjs
     .genSalt(saltRounds)
     .then((salt) => bcryptjs.hash(password, salt))
@@ -55,6 +90,7 @@ router.post("/signup", (req, res, next) => {
       } else {
         next(error);
       }
+>>>>>>> 2be46c3d7cc9c1e66e69b551e86edfb1d762b578
     });
 });
 
