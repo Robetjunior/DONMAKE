@@ -6,17 +6,20 @@ const Announcement = require("../models/Announcement.model");
 // Protegendo rota privada
 router.get("/ong/profile", async (req, res) => {
   console.log("your sess exp: ", req.session.cookie.expires);
+
   if (req.session.currentUser) {
     try {
       const userID = req.session.currentUser._id;
       //const response = await Announcement.find({ ongId: req.userID }).populate("Announcement").exec();
-      const responseOng = await Ong.find({ _id: userID });
+
+      const responseOng = await Ong.find({_id: userID });
       res.status(200).json(responseOng);
     } catch (err) {
-      console.log("Error: ", err);
+      console.log("Error: " ,err);
       res.status(302).json("OFF!!");
     }
   }
+
 });
 
 //Edit/update Ong information

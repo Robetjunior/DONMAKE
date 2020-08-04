@@ -76,6 +76,7 @@ router.post("/login", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
+
 //Logout
 router.post("/logout", (req, res) => {
   req.session.destroy();
