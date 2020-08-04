@@ -1,11 +1,11 @@
-const Announcement = require('../models/Announcement.model');
+const Announcement = require("../models/Announcement.model");
 const express = require("express");
 const router = express.Router();
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
-  const { title, description, imgPath, value } = req.body;
+  const { title, value, imgPath, description } = req.body;
   try {
-    if (!title || !description || !imgPath || !value) {
+    if (!title || !value || !imgPath || !description) {
       res.status(400).json({ message: "Please provide all informations" });
     }
     const response = await Announcement.create({
@@ -64,4 +64,3 @@ router.delete("/announcement/:id/delete", async (req, res) => {
   }
 });
 module.exports = router;
-
