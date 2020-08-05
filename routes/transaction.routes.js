@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Transaction = require("../models/Transaction.model");
-const Announcement = require("../models/Announcement.model")
+const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
 
 // Envio de transação
@@ -9,13 +9,8 @@ const Ong = require("../models/Ong.model");
 router.post("/transaction/create/", async (req, res) => {
   try {
     const { firstName, lastName, email, phone, value, AnunId } = req.body;
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phone ||
-      !value
-    ) {
+    console.log(req.body);
+    if (!firstName || !lastName || !email || !phone || !value) {
       return res
         .status(400)
         .json({ message: "Please provide all informations" });
@@ -27,12 +22,15 @@ router.post("/transaction/create/", async (req, res) => {
       email,
       phone,
       value,
-      announcement: AnunId
+      announcement: AnunId,
     });
 
-    const annunResponse = await Announcement.updateOne({ _id: AnunId }, { $push: { transaction: transactionResponse._id }});
+    const annunResponse = await Announcement.updateOne(
+      { _id: AnunId },
+      { $push: { transaction: transactionResponse._id } }
+    );
 
-    res.status(201).json({ transactionResponse, annunResponse});
+    res.status(201).json({ transactionResponse, annunResponse });
   } catch (err) {
     throw new Error(err);
   }
@@ -48,13 +46,12 @@ router.get("/transaction/:id", async (req, res) => {
   }
 });
 
- router.get("/transactions", async (req, res)=> {
-   try{
-     const response = await Announcement.find().populate("transaction").exec()
-     return res.status(200).json(response)
-   }
-   catch(err) {
-     throw new Error(err);
-   }
- })
+router.get("/transactions", async (req, res) => {
+  try {
+    const response = await Announcement.find().populate("transaction").exec();
+    return res.status(200).json(response);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
 module.exports = router;
