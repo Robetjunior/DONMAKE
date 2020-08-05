@@ -3,9 +3,9 @@ const express = require("express");
 const router = express.Router();
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
-  const { title, value, imgPath, description } = req.body;
+  const { title, description, imgPath, value } = req.body;
   try {
-    if (!title || !value || !imgPath || !description) {
+    if (!title || !description || !imgPath || !value) {
       res.status(400).json({ message: "Please provide all informations" });
     }
     const response = await Announcement.create({
