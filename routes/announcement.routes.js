@@ -1,6 +1,9 @@
-const Announcement = require("../models/Announcement.model");
 const express = require("express");
 const router = express.Router();
+
+const Announcement = require("../models/Announcement.model");
+const Ong = require("../models/Ong.model");
+
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
   const { title, description, imgPath, value } = req.body;
@@ -15,7 +18,13 @@ router.post("/announcement/create", async (req, res) => {
       value,
       ongId: req.session.currentUser._id,
     });
-    return res.status(201).json(response);
+
+    const updatedOng = await Ong.updateOne(
+      { _id: req.session.currentUser._id },
+      { $push: { adId: response._id } }
+    );
+
+    return res.status(201).json({ response, updatedOng });
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
