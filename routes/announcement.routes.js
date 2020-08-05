@@ -1,4 +1,4 @@
-const Announcement = require('../models/Announcement.model');
+const Announcement = require("../models/Announcement.model");
 const express = require("express");
 const router = express.Router();
 //POST/ Create Announcement
@@ -64,4 +64,3 @@ router.delete("/announcement/:id/delete", async (req, res) => {
   }
 });
 module.exports = router;
-
