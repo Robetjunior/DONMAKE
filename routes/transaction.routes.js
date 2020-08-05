@@ -6,11 +6,9 @@ const Ong = require("../models/Ong.model");
 
 // Envio de transação
 
-router.post("/transaction/create/:id", async (req, res) => {
+router.post("/transaction/create/", async (req, res) => {
   try {
-    const { firstName, lastName, email, phone, value } = req.body;
-
-    const { id } = req.params;
+    const { firstName, lastName, email, phone, value, AnunId } = req.body;
     if (
       !firstName ||
       !lastName ||
@@ -22,15 +20,19 @@ router.post("/transaction/create/:id", async (req, res) => {
         .status(400)
         .json({ message: "Please provide all informations" });
     }
-    const response = await Transaction.create({
+
+    const transactionResponse = await Transaction.create({
       firstName,
       lastName,
       email,
       phone,
       value,
-      announcement: {_id: id}
+      announcement: AnunId
     });
-    res.status(201).json({ response});
+
+    const annunResponse = await Announcement.updateOne({ _id: AnunId }, { $push: { transaction: transactionResponse._id }});
+
+    res.status(201).json({ transactionResponse, annunResponse});
   } catch (err) {
     throw new Error(err);
   }
