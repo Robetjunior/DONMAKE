@@ -1,32 +1,37 @@
 const express = require("express");
 const router = express.Router();
 
+const uploader = require('../configs/cloudinary');
+
 const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
 
 //POST/ Create Announcement
-router.post("/announcement/create", async (req, res) => {
-  const { title, description, imgPath, value } = req.body;
+router.post("/announcement/create", uploader.single('imgPath'), async (req, res) => {
+  const { title, description, value } = req.body;
   try {
-    if (!title || !description || !imgPath || !value) {
+    if (!title || !description || !value) {
       res.status(400).json({ message: "Please provide all informations" });
     }
+
     const response = await Announcement.create({
-      _id: req.session.currentUser._id,
       title,
       description,
-      imgPath,
-      value
+      imgPath: req.file.url,
+      value,
+      ongId: req.session.currentUser._id,
     });
 
-    const updatedOng = await Ong.updateOne({ _id: req.session.currentUser._id }, { $push: { adId: response._id } }
-    );
+    console.log(response);
+
+    const updatedOng = await Ong.updateOne( { _id: req.session.currentUser._id }, { $push: { adId: response._id } });
 
      res.status(201).json({ ...response});
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
 });
+
 //GET/Announcement list
 router.get("/announcement", async (req, res) => {
   try {
