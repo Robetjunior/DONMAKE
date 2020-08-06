@@ -29,7 +29,7 @@ router.post("/announcement/create", async (req, res) => {
     const response = await Announcement.create({
       title,
       description,
-      imgPath: ImageUrl,
+      imgPath: req.file.url,
       value,
       ongId: req.session.currentUser._id,
     });
@@ -38,7 +38,7 @@ router.post("/announcement/create", async (req, res) => {
       { _id: req.session.currentUser._id },
       { $push: { adId: response._id } }
     );
-
+    
     res.status(201).json({ ...response });
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
