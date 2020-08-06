@@ -11,18 +11,14 @@ router.get("/ong/profile", async (req, res) => {
     try {
       const userID = req.session.currentUser._id;
 
-      const response = await Announcement.find({ _id: userID });
+      const response = await Ong.find({ _id: userID }).populate("adId").exec();
 
-      const responseOng = await Ong.find({ _id: userID });
-
-      res.status(200).json([...responseOng, ...response]);
-
+      res.status(200).json(response);
     } catch (err) {
-      console.log("Error: " ,err);
+      console.log("Error: ", err);
       res.status(302).json("OFF!!");
     }
   }
-
 });
 
 //Edit/update Ong information

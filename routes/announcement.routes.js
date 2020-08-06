@@ -11,18 +11,21 @@ router.post("/announcement/create", async (req, res) => {
     if (!title || !description || !imgPath || !value) {
       res.status(400).json({ message: "Please provide all informations" });
     }
+
     const response = await Announcement.create({
-      _id: req.session.currentUser._id,
       title,
       description,
       imgPath,
-      value
+      value,
+      ongId: req.session.currentUser._id,
     });
 
-    const updatedOng = await Ong.updateOne({ _id: req.session.currentUser._id }, { $push: { adId: response._id } }
+    const updatedOng = await Ong.updateOne(
+      { _id: req.session.currentUser._id },
+      { $push: { adId: response._id } }
     );
 
-     res.status(201).json({ ...response});
+    res.status(201).json({ ...response });
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
