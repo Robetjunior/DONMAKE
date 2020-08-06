@@ -12,19 +12,17 @@ router.post("/announcement/create", async (req, res) => {
       res.status(400).json({ message: "Please provide all informations" });
     }
     const response = await Announcement.create({
+      _id: req.session.currentUser._id,
       title,
       description,
       imgPath,
-      value,
-      ongId: req.session.currentUser._id,
+      value
     });
 
-    const updatedOng = await Ong.updateOne(
-      { _id: req.session.currentUser._id },
-      { $push: { adId: response._id } }
+    const updatedOng = await Ong.updateOne({ _id: req.session.currentUser._id }, { $push: { adId: response._id } }
     );
 
-    return res.status(201).json({ response, updatedOng });
+     res.status(201).json({ ...response});
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
@@ -36,6 +34,7 @@ router.get("/announcement", async (req, res) => {
     return res.status(200).json(response);
   } catch (err) {}
 });
+
 //GET/details Announcement
 router.get("/announcement/:id", async (req, res) => {
   try {
@@ -46,6 +45,7 @@ router.get("/announcement/:id", async (req, res) => {
     console.log(err);
   }
 });
+
 //PATCH/Update Announcement
 router.patch("/announcement/:id/edit", async (req, res) => {
   const { title, description, value, imgPath } = req.body;
@@ -62,6 +62,7 @@ router.patch("/announcement/:id/edit", async (req, res) => {
     throw new Error(err);
   }
 });
+
 //DELETE/ Delete Announcement
 router.delete("/announcement/:id/delete", async (req, res) => {
   try {
