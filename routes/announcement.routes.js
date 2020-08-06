@@ -6,8 +6,20 @@ const uploader = require('../configs/cloudinary');
 const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
 
+router.post(
+  "/announ/upload-image",
+  uploader.single("imgPath"),
+  (req, res) => {
+    if (!req.file) {
+      return res.status(500).json({ message: "No file uploaded!" });
+    }
+
+    return res.status(200).json({ ImageUrl: req.file.secure_url });
+  }
+);
+
 //POST/ Create Announcement
-router.post("/announcement/create", uploader.single('imgPath'), async (req, res) => {
+router.post("/announcement/create", async (req, res) => {
   const { title, description, value } = req.body;
   try {
     if (!title || !description || !value) {
@@ -17,16 +29,17 @@ router.post("/announcement/create", uploader.single('imgPath'), async (req, res)
     const response = await Announcement.create({
       title,
       description,
-      imgPath: req.file.url,
+      imgPath: ImageUrl,
       value,
       ongId: req.session.currentUser._id,
     });
 
-    console.log(response);
+    const updatedOng = await Ong.updateOne(
+      { _id: req.session.currentUser._id },
+      { $push: { adId: response._id } }
+    );
 
-    const updatedOng = await Ong.updateOne( { _id: req.session.currentUser._id }, { $push: { adId: response._id } });
-
-     res.status(201).json({ ...response});
+    res.status(201).json({ ...response });
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
