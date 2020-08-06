@@ -17,16 +17,17 @@ router.post("/announcement/create", uploader.single('imgPath'), async (req, res)
     const response = await Announcement.create({
       title,
       description,
+
       imgPath: req.file.url,
+
       value,
       ongId: req.session.currentUser._id,
     });
 
-    console.log(response);
-
     const updatedOng = await Ong.updateOne( { _id: req.session.currentUser._id }, { $push: { adId: response._id } });
 
-     res.status(201).json({ ...response});
+
+    res.status(201).json({ ...response });
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
