@@ -208,6 +208,7 @@
  .form input[type='number'],
  .form input[type='file '],
  .form input[type='submit'],
+ .form input[type='value'],
  .form textarea {
    width: 100%;
  }
@@ -246,6 +247,7 @@
  .login input[type='password'],
  .login input[type='number'],
  .login input[type='submit'],
+ .login input[type='value'],
  .login textarea {
    border-radius: var(--loginBorderRadus);
    padding: 1rem;
@@ -265,6 +267,7 @@
  .login input[type='number'],
  .login input[type='file'],
  .login input[type='text'],
+ .login input[type='value'],
  .login textarea {
   background-color: var(--loginInputBackgroundColor);
   border-bottom-left-radius: 0;
@@ -281,6 +284,8 @@
  .login input[type='file']:hover
  .login input[type='text']:focus,
  .login input[type='text']:hover ,
+ .login input[type='value']:focus,
+ .login input[type='value']:hover ,
  .login textarea:focus,
  .login textarea:hover{
    background-color: var(--loginInputHoverBackgroundColor);
@@ -392,7 +397,11 @@
    rgba(33, 241, 61, 0.719)
   );
    border-radius: 2rem;
-   box-shadow: 1px 1px rgba(8, 26, 192, 0.5)
+   box-shadow: 1px 1px rgba(8, 26, 192, 0.5);
+  
+}
+.no-underline{
+  text-decoration: none!important;
 }
 .button-new-model:hover{
   background-image: linear-gradient(
@@ -405,7 +414,7 @@
 
 .card-donate{
   box-shadow: 4px 4px #35353538;
-  border: 1px solid rgba(190, 190, 190, 0.26);
+
 }
 
 .text-donate {
@@ -431,4 +440,73 @@
   padding-right: 1rem;
 
 
+}
+
+.image-size-control{
+  min-width: 25vw;
+  height: auto;
+  max-width: 35vw;
+}
+
+.cardss{
+  background-color: rgba(180, 164, 134, 0);
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  box-shadow: 4px 4px #35353538
+}
+.card-title{
+  background-color: orangered;
+  color:white;
+  text-align: center;
+}
+
+
+.image-control-profile{
+  min-width: 25vw;
+  height: auto;
+  max-width: 50vw;
+}
+.image-control-detail{
+  min-width: 25vw;
+  height: auto;
+  max-width: 45vw;
+}
+
+.card-profile{
+  
+    height: 25rem !important;
+    display: inline-block;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+}
+.profile-back{
+  background-color: rgb(78, 78, 78);
+  color:rgb(255, 255, 255);
+}
+
+.profile-announcements{
+  text-align: center;
+  margin-bottom: 2rem;
+
+}
+.profile-title{
+  margin-bottom: 2rem;
+}
+
+.back-label{
+  background-color:orangered;
+  color:white;
+  border-bottom-left-radius: 10%;
+  border-top-left-radius: 10%;
+  padding: .75rem;
+}
+.back-label:hover{
+  background-color:rgb(255, 255, 255);
+  color:orangered
+  
+}
+
+.scroll{
+  overflow:auto;
+  height:100vh
 }
