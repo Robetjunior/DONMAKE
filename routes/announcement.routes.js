@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const uploader = require('../configs/cloudinary');
+const uploader = require("../configs/cloudinary");
 
 const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
@@ -43,7 +43,7 @@ router.post("/announcement/create", async (req, res) => {
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
-});
+);
 
 //GET/Announcement list
 router.get("/announcement", async (req, res) => {
