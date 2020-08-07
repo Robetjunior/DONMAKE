@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "afd9e8e51c7af4ed6cae991bed2ca291",
+    "revision": "476e978e5a2648ba913cdcc92e4ea1db",
     "url": "/index.html"
   },
   {
-    "revision": "aad8efd3c54ad2e78440",
+    "revision": "7ea4b497f59d99aa5243",
     "url": "/static/css/main.e760bca8.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.a7d93be8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "aad8efd3c54ad2e78440",
-    "url": "/static/js/main.1dd39b4e.chunk.js"
+    "revision": "7ea4b497f59d99aa5243",
+    "url": "/static/js/main.10f98f2c.chunk.js"
   },
   {
     "revision": "5aa59d768a98d6baae0e",
@@ -38,6 +38,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "48f88ac8947f049c4571f600355ec7d1",
     "url": "/static/media/donateBox.48f88ac8.jpg"
+  },
+  {
+    "revision": "683b597c6f8d439b46ba2ce1f41cf48f",
+    "url": "/static/media/donations.683b597c.jpg"
   },
   {
     "revision": "46b7997f4f2c01b6ee80989fc6c9d03e",

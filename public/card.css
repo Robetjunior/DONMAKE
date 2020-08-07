@@ -1,74 +1,3 @@
-/* body {
-    background-color: #585b66 !important;
-    color: white !important;
-    font-family: "Lato";
-  }
-  .container-card {
-    position: absolute;
-    
-   
-    width: 100%;
-    height: auto;
-  }
-  .media {
-    background-position: center;
-    background-size: cover;
-    height: 100%;
-    position: absolute;body
-    transition: all 0.3s ease;
-    width: 100%;
-  }
-  figure {
-    height: 370px;
-    overflow: hidden;
-    position: relative;
-  }
-  figure a {
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 3;
-  }
-  figure:hover .media {
-    transform: scale(1.25);
-  }
-  figcaption {
-    color: #252830;
-    height: calc(100% - 30px);
-    margin: 15px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 250px;
-  }
-  .body {
-    background-color: white;
-    bottom: 0;
-    padding: 15px;
-    position: absolute;
-    width: 100%;  
-  }
-  
-  
-  svg text {
-    text-anchor: middle;
-  }
-  svg #alpha {
-    fill: white;
-  }
-  svg .title {
-    font-size: 28px;
-    font-family: "Montserrat";
-    letter-spacing: 5px;
-  }
-  svg #base {
-    fill: white;
-    -webkit-mask: url(#mask);
-    mask: url(#mask);
-  } */
-
 
 
   /* Home page backgrounds divs*/
@@ -101,6 +30,7 @@
    color:darkblue
  }
 
+ 
 
  .img-rounded{
    border-radius: 25%;
@@ -124,7 +54,9 @@
   border-radius: 20%;
   padding:1rem
 }
- /* Teste Form Layout*/
+ 
+
+/* Teste Form Layout*/
 
 
 
@@ -195,8 +127,8 @@
  :root {
    --htmlFontSize: 100%;
  
-   --bodyBackgroundColor: #2c3338;
-   --bodyColor: var(--baseColor);
+   --bodyBackgroundColor: #464545;
+   --bodyColor: rgb(255, 102, 0);
    --bodyFontFamily: 'Open Sans';
    --bodyFontFamilyFallback: sans-serif;
    --bodyFontSize: 0.875rem;
@@ -252,12 +184,15 @@
  input {
    background-image: none;
    border: 0;
-   color: inherit;
+   color: white!important;
    font: inherit;
    margin: 0;
    outline: 0;
    padding: 0;
    transition: background-color 0.3s;
+ }
+ textarea{
+   color:white!important
  }
  
  input[type='submit'] {
@@ -317,11 +252,13 @@
  }
  
  .login label {
-   background-color: var(--loginLabelBackgroundColor);
-   border-bottom-right-radius: 0;
-   border-top-right-radius: 0;
-   padding-left: 1.25rem;
-   padding-right: 1.25rem;
+  background-color: var(--loginLabelBackgroundColor);
+    border-bottom-left-radius: 10%;
+    border-top-left-radius: 10%;
+    padding: 1.25rem;
+    padding-right: 1.25rem;
+    height: 3rem;
+    width:3rem
  }
  
  .login input[type='password'],
@@ -329,9 +266,11 @@
  .login input[type='file'],
  .login input[type='text'],
  .login textarea {
-   background-color: var(--loginInputBackgroundColor);
-   border-bottom-left-radius: 0;
-   border-top-left-radius: 0;
+  background-color: var(--loginInputBackgroundColor);
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  height: 3rem;
+  border:none
  }
  
  .login input[type='password']:focus,
@@ -373,19 +312,18 @@
  
  .text--center {
    text-align: center;
+   color:rgb(100, 99, 99) !important
  }
 
 
  /*Footer */
  footer{
   background:transparent;
-
   display: block;
   align-items:center;
   justify-content: flex-start;
   bottom: 0;
   width: 100%;
-  
   position: relative
 }
 .text-muted-color{
@@ -402,10 +340,95 @@
   z-index:2
 }
 .nav-text-color{
-  color: rgb(255, 94, 0) !important
+  color: rgb(82, 82, 82) !important;
+  font-size: 1.5rem;
+}
+.nav-text-color:hover{
+  color: rgb(255, 254, 254) !important
 }
 .nav-svg{
   color: #fd4108 !important
 
 }
 
+
+
+
+/* Collaborator Img */
+
+.img-colaborator{
+  border-radius: 50%;
+  border: 0;
+  padding:1rem;
+  align-self: center;
+  width:28vw;
+  height:auto
+  
+}
+
+
+/* Layout Colors */
+
+.color-gradient{
+ background-image: linear-gradient(
+  115deg,
+  rgba(204, 85, 16, 0.5),
+  rgba(190, 28, 190, 0.5)); 
+ padding: 1rem;
+ color:white;
+}
+.color-gradient2{
+  background-image: linear-gradient(
+   115deg,
+   rgba(204, 85, 16, 0.5),
+   rgba(190, 28, 190, 0.5)); 
+  padding: 1rem;
+  color:white;
+ }
+.button-new-model{
+  background-image: linear-gradient(
+   115deg,
+   rgba(32, 19, 216, 0.5),
+   rgba(33, 241, 61, 0.719)
+  );
+   border-radius: 2rem;
+   box-shadow: 1px 1px rgba(8, 26, 192, 0.5)
+}
+.button-new-model:hover{
+  background-image: linear-gradient(
+   115deg,
+   rgba(31, 0, 88, 0.6),
+   rgba(0, 85, 52, 0.6));
+   box-shadow: 2px 2px rgba(255, 255, 255, 0);
+   border-radius: 2rem;
+}
+
+.card-donate{
+  box-shadow: 4px 4px #35353538;
+  border: 1px solid rgba(190, 190, 190, 0.26);
+}
+
+.text-donate {
+  text-shadow: 4px 4px #35353538;
+}
+
+.text-donate-sm{
+  text-shadow: 2px 2px  #35353538;
+}
+
+
+.form-shadow{
+  background-color: rgba(19, 19, 19, 0.486);
+  border-radius: 2rem;
+}
+
+.hover-button:hover
+{
+  background-color: rgba(247, 97, 11, 0.705);
+  padding: .5rem ;
+  border-radius: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+
+}
