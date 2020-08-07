@@ -15,6 +15,7 @@ router.post("/announcement/create", async (req, res) => {
       value,
       ongId: req.session.currentUser._id,
     });
+    console.log(response)
     return res.status(201).json(response);
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
