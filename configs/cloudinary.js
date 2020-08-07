@@ -1,5 +1,5 @@
 const cloudinary = require("cloudinary");
-const { CloudinaryStorage } = require('multer-storage-cloudinary')
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
 cloudinary.config({
@@ -10,10 +10,10 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  folder: "host",
+  folder: "DONMAKE",
   allowedFormats: ["jpg", "png"],
   filename: function (req, file, cb) {
-    cb(null, file.originalname); 
+    cb(null, file.originalname);
   },
 });
 
