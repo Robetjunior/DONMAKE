@@ -6,6 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const cors = require("cors");
+const path = require("path");
 
 mongoose
   .connect(process.env.MONGODB_URI, {
