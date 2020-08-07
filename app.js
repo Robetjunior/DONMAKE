@@ -6,9 +6,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const cors = require("cors");
+const path = require("path");
 
 mongoose
-  .connect("mongodb://localhost/project3", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -31,18 +32,19 @@ app.use(cookieParser());
 
 // ADD SESSION SETTINGS HERE:
 
-require('./configs/session')(app);
-
+require("./configs/session")(app);
 
 // default value for title local
 app.locals.title = "Projeto";
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // ADD CORS SETTINGS HERE TO ALLOW CROSS-ORIGIN INTERACTION:
 
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000"],
+    origin: [process.env.CORS_ORIGIN],
   })
 );
 
@@ -56,5 +58,9 @@ app.use("/api", announcementRoutes);
 app.use("/api", transactionsRoutes);
 app.use("/api", ongRoutes);
 app.use("/api", authRoutes);
+
+// app.use((req, res, next) => {
+//   res.sendFile(__dirname + "/public/index.html");
+// });
 
 module.exports = app;

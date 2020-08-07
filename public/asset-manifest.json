@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e760bca8.chunk.css",
+    "main.js": "/static/js/main.1dd39b4e.chunk.js",
+    "main.js.map": "/static/js/main.1dd39b4e.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.fb9a97e5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.fb9a97e5.js.map",
+    "static/js/2.a7d93be8.chunk.js": "/static/js/2.a7d93be8.chunk.js",
+    "static/js/2.a7d93be8.chunk.js.map": "/static/js/2.a7d93be8.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.84c0fa3a8aa91f220d9364b5af562d1f.js": "/precache-manifest.84c0fa3a8aa91f220d9364b5af562d1f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.e760bca8.chunk.css.map": "/static/css/main.e760bca8.chunk.css.map",
+    "static/js/2.a7d93be8.chunk.js.LICENSE.txt": "/static/js/2.a7d93be8.chunk.js.LICENSE.txt",
+    "static/media/box.jpg": "/static/media/box.ca11f5e8.jpg",
+    "static/media/convertDonation.jpg": "/static/media/convertDonation.649d8d89.jpg",
+    "static/media/distribuition.jpg": "/static/media/distribuition.4d114c99.jpg",
+    "static/media/donateBox.jpg": "/static/media/donateBox.48f88ac8.jpg",
+    "static/media/moneyDonate.jpg": "/static/media/moneyDonate.46b7997f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fb9a97e5.js",
+    "static/js/2.a7d93be8.chunk.js",
+    "static/css/main.e760bca8.chunk.css",
+    "static/js/main.1dd39b4e.chunk.js"
+  ]
+}
