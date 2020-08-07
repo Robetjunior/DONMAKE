@@ -6,10 +6,7 @@ const uploader = require('../configs/cloudinary');
 const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
 
-router.post(
-  "/announ/upload-image",
-  uploader.single("imgPath"),
-  (req, res) => {
+router.post("/announcement/upload-image ", uploader.single("imgPath"), (req, res) => {
     if (!req.file) {
       return res.status(500).json({ message: "No file uploaded!" });
     }
