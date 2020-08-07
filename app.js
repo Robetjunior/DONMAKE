@@ -59,8 +59,8 @@ app.use("/api", transactionsRoutes);
 app.use("/api", ongRoutes);
 app.use("/api", authRoutes);
 
-app.use((req, res, next) => {
-  res.sendFile(__dirname + "/public/index.html");
-});
+// app.use((req, res, next) => {
+//   res.sendFile(__dirname + "/public/index.html");
+// });
 
 module.exports = app;
