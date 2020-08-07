@@ -36,6 +36,8 @@ require("./configs/session")(app);
 // default value for title local
 app.locals.title = "Projeto";
 
+app.use(express.static(path.join(__dirname, "public")));
+
 // ADD CORS SETTINGS HERE TO ALLOW CROSS-ORIGIN INTERACTION:
 
 app.use(
