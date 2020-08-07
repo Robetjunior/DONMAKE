@@ -6,36 +6,42 @@ const uploader = require("../configs/cloudinary");
 const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
 
-//POST/ Create Announcement
 router.post(
-  "/announcement/create",
+  "/announ/upload-image",
   uploader.single("imgPath"),
-  async (req, res) => {
-    const { title, description, value } = req.body;
-    try {
-      if (!title || !description || !value) {
-        res.status(400).json({ message: "Please provide all informations" });
-      }
-
-      const response = await Announcement.create({
-        title,
-        description,
-
-        imgPath: req.file.url,
-
-        value,
-        ongId: req.session.currentUser._id,
-      });
-
-      const updatedOng = await Ong.updateOne(
-        { _id: req.session.currentUser._id },
-        { $push: { adId: response._id } }
-      );
-
-      res.status(201).json({ ...response });
-    } catch (err) {
-      console.log(`Error while creating a new  announcement ${err}`);
+  (req, res) => {
+    if (!req.file) {
+      return res.status(500).json({ message: "No file uploaded!" });
     }
+
+    return res.status(200).json({ ImageUrl: req.file.secure_url });
+  }
+);
+
+//POST/ Create Announcement
+router.post("/announcement/create", async (req, res) => {
+  const { title, description, value } = req.body;
+  try {
+    if (!title || !description || !value) {
+      res.status(400).json({ message: "Please provide all informations" });
+    }
+
+    const response = await Announcement.create({
+      title,
+      description,
+      imgPath: req.file.url,
+      value,
+      ongId: req.session.currentUser._id,
+    });
+
+    const updatedOng = await Ong.updateOne(
+      { _id: req.session.currentUser._id },
+      { $push: { adId: response._id } }
+    );
+    
+    res.status(201).json({ ...response });
+  } catch (err) {
+    console.log(`Error while creating a new  announcement ${err}`);
   }
 );
 
