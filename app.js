@@ -8,7 +8,7 @@ const logger = require("morgan");
 const cors = require("cors");
 
 mongoose
-  .connect("mongodb://localhost/project3", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -31,8 +31,7 @@ app.use(cookieParser());
 
 // ADD SESSION SETTINGS HERE:
 
-require('./configs/session')(app);
-
+require("./configs/session")(app);
 
 // default value for title local
 app.locals.title = "Projeto";
@@ -42,7 +41,7 @@ app.locals.title = "Projeto";
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000"],
+    origin: [process.env.CORS_ORIGIN],
   })
 );
 
@@ -56,5 +55,9 @@ app.use("/api", announcementRoutes);
 app.use("/api", transactionsRoutes);
 app.use("/api", ongRoutes);
 app.use("/api", authRoutes);
+
+app.use((req, res, next) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app;
