@@ -4,18 +4,19 @@ const uploader = require("../configs/cloudinary");
 const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
 router.post(
-  "/announcement/upload-image ",
+  "/announcement/upload-image",
   uploader.single("imgPath"),
   (req, res) => {
+    console.log(req.body);
     if (!req.file) {
       return res.status(500).json({ message: "No file uploaded!" });
     }
-    return res.status(200).json({ ImageUrl: req.file.secure_url });
+    return res.status(200).json(req.file.secure_url);
   }
 );
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
-  const { title, description, value } = req.body;
+  const { title, description, ImageUrl, value } = req.body;
   try {
     if (!title || !description || !value) {
       res.status(400).json({ message: "Please provide all informations" });
@@ -23,7 +24,7 @@ router.post("/announcement/create", async (req, res) => {
     const response = await Announcement.create({
       title,
       description,
-      imgPath: req.file.url,
+      imgPath: ImageUrl,
       value,
       ongId: req.session.currentUser._id,
     });
