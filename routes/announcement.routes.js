@@ -1,23 +1,18 @@
 const express = require("express");
 const router = express.Router();
-
 const uploader = require("../configs/cloudinary");
-
 const Announcement = require("../models/Announcement.model");
 const Ong = require("../models/Ong.model");
-
 router.post(
-  "/announ/upload-image",
+  "/announcement/upload-image ",
   uploader.single("imgPath"),
   (req, res) => {
     if (!req.file) {
       return res.status(500).json({ message: "No file uploaded!" });
     }
-
     return res.status(200).json({ ImageUrl: req.file.secure_url });
   }
 );
-
 //POST/ Create Announcement
 router.post("/announcement/create", async (req, res) => {
   const { title, description, value } = req.body;
@@ -25,7 +20,6 @@ router.post("/announcement/create", async (req, res) => {
     if (!title || !description || !value) {
       res.status(400).json({ message: "Please provide all informations" });
     }
-
     const response = await Announcement.create({
       title,
       description,
@@ -33,18 +27,15 @@ router.post("/announcement/create", async (req, res) => {
       value,
       ongId: req.session.currentUser._id,
     });
-
     const updatedOng = await Ong.updateOne(
       { _id: req.session.currentUser._id },
       { $push: { adId: response._id } }
     );
-    
     res.status(201).json({ ...response });
   } catch (err) {
     console.log(`Error while creating a new  announcement ${err}`);
   }
-);
-
+});
 //GET/Announcement list
 router.get("/announcement", async (req, res) => {
   try {
@@ -52,7 +43,6 @@ router.get("/announcement", async (req, res) => {
     return res.status(200).json(response);
   } catch (err) {}
 });
-
 //GET/details Announcement
 router.get("/announcement/:id", async (req, res) => {
   try {
@@ -63,7 +53,6 @@ router.get("/announcement/:id", async (req, res) => {
     console.log(err);
   }
 });
-
 //PATCH/Update Announcement
 router.patch("/announcement/:id/edit", async (req, res) => {
   const { title, description, value, imgPath } = req.body;
@@ -80,7 +69,6 @@ router.patch("/announcement/:id/edit", async (req, res) => {
     throw new Error(err);
   }
 });
-
 //DELETE/ Delete Announcement
 router.delete("/announcement/:id/delete", async (req, res) => {
   try {
