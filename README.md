@@ -3,7 +3,7 @@
 
 <h1> <a href="http://donmake.herokuapp.com/">DonMaker </a></h1>
 
-<h4>A DonMaker foi criada como uma plataforma de gerenciamento de campanhas de doação, onde dividimos ela em duas partes: </h4>
+<h4>A DONMAKE foi criada como uma plataforma de gerenciamento de campanhas de doação, onde dividimos ela em duas partes: </h4>
 
 <h5>Ongs tem seu espaço próprio para cadastro e criação de campanhas, onde podem informar sobre o que é a campanha em questão e o quanto precisam para a compra dos materiais necessários. No caso a Ong cadastra um valor de campanha e nós realizamos a captação do recurso
 e distribuimos o valor destinado a ela já enviando como o recurso solicitado como por exemplo: alimentos, materiais de construção, roupas, etc.</h5>
